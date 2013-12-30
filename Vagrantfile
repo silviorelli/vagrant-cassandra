@@ -31,13 +31,18 @@ Vagrant::Config.run do |config|
         chef.cookbooks_path = ["vagrant/cookbooks", "vagrant/site-cookbooks"]
         chef.add_recipe "updater"
         chef.add_recipe "java"
-        chef.add_recipe "cassandra::tarball"
+###        chef.add_recipe "cassandra::tarball"
+        chef.add_recipe "cassandra::datastax"
         chef.json = {
           :cassandra => {'cluster_name' => 'My Cluster',
                          'initial_token' => server['initial_token'],
                          'seeds' => seeds.join(","),
                          'listen_address' => server['ip'],
-                         'rpc_address' => server['ip']}
+                         'rpc_address' => server['ip'],
+### Force version of the Cassandra package otherwise python-cql will install Cassandra 2
+                         'version' => '1.2.13',
+                         'package_name' => 'dsc12'
+                         }
         }
       end
     end
