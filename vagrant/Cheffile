@@ -6,5 +6,8 @@ site 'http://community.opscode.com/api/v1'
 cookbook 'apt'
 cookbook 'java'
 
+### circular dependency bug in cookbooks, I need to ad this patched cookbook during the first installation and then remove it
+#cookbook 'windows', :git => 'https://github.com/SimpleFinance/chef-windows.git'
+
 cookbook 'cassandra',
     :git => 'https://github.com/michaelklishin/cassandra-chef-cookbook'
